@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
+import Home from "./features/Home";
+import StudentHomePage from "./features/Student/homepage";
+import AdminHomePage from "./features/Admin/Homepage";
+import IsLoggedIn from "./Auth/isLoggedIn";
 
 function App() {
+  const GetStudentPath = () => {
+    debugger;
+    const flag = IsLoggedIn("student");
+    return (
+      <Route path="/student">
+        {flag ? <StudentHomePage /> : <Redirect to="/"></Redirect>}
+      </Route>
+    );
+  };
+  const GetAdminPath = () => {
+    debugger;
+    const flag = IsLoggedIn("admin");
+    return (
+      <Route path="/admin">
+        {flag ? <AdminHomePage /> : <Redirect to="/"></Redirect>}
+      </Route>
+    );
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          {GetStudentPath()}
+          {GetAdminPath()}
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
