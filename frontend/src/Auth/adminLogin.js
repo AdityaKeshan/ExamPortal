@@ -3,20 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 export const adminSlice = createSlice({
   name: "loginAdmin",
   initialState: {
-    admin: { name: "" },
+    admin: { name: "", email: "", token: "" },
   },
   reducers: {
-    setAdmin: (state, action) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
+    setAdminName: (state, action) => {
       state.admin = { ...state.admin, ...{ name: action.payload } };
+    },
+    setAdminEmail: (state, action) => {
+      state.admin = { ...state.admin, ...{ email: action.payload } };
+    },
+    setAdminToken: (state, action) => {
+      state.admin = { ...state.admin, ...{ token: action.payload } };
+    },
+    setAdmin: (state, action) => {
+      state.admin = action.payload;
+    },
+    resetAdmin: (state) => {
+      state.admin = { name: "", email: "", token: "" };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAdmin } = adminSlice.actions;
+export const { setAdmin, resetAdmin } = adminSlice.actions;
 
 export default adminSlice.reducer;
