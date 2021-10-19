@@ -71,7 +71,6 @@ function App() {
     );
   };
   const getHomePath = () => {
-    debugger;
     const flag = localStorage.getItem("loggedIn");
     return (
       <Route path="/">
