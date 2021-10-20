@@ -11,7 +11,7 @@ const Header = ({ textOne, textTwo, handleOne, handleTwo }) => {
     user = admin;
   }
   return (
-    <div className="w-full min-h-50 h-12 flex items-center justify-end bg-blue-700 text-blue-200">
+    <div className="w-full min-h-50 h-12 flex items-center justify-end bg-blue-700 text-blue-200 border-b-4 border-blue-200">
       {user ? (
         <p className="m-2">{user}</p>
       ) : (
