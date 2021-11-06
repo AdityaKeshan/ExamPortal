@@ -1,19 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const { getAuth } = require("firebase/auth");
+const path = require("path");
+const { app, admin } = require(path.resolve("../ExamPortal/src/config/firebase-config"));
+
+router.get("/",(req,res)=> {
+  res.send("Hello");
+});
 router.post("/", (req, res) => {
-  const { idToken } = req.body;
-  console.log(getAuth());
-  getAuth()
-    .verifyIdToken(idToken)
-    .then((decodedToken) => {
-      const uid = decodedToken.uid;
-      res.json({ message: "this works!", id: uid });
-    })
-    .catch((error) => {
-      res.status(400);
-      res.json({ message: "verification failed!" });
-    });
+  const { tokenid } = req.body;
+  admin.auth().verifyIdToken(tokenid).then((decodedToken) => {
+     const uid = decodedToken.uid;
+     res.json({ message: "this works!", id: uid });
+  }).catch((error) => {
+    res.status(400);
+     res.json({ message: "verification failed!" });
+  });
+  
+    // .verifyIdToken(idToken)
+   
 });
 
 module.exports = router;

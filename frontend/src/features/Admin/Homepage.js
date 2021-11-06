@@ -10,6 +10,7 @@ const Homepage = () => {
   const dispatch = useDispatch();
   const admin = useSelector((store) => store.loginAdmin.admin);
   const history = useHistory();
+  
   const getCourses = async () => {
     const result = await axios
       .post("http://localhost:3001/admin/course", {
