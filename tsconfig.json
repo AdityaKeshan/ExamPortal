@@ -111,5 +111,5 @@
     "./*",
     "./config" 
   ],
-  "exclude": ["./node_modules", "./dist","./frontend/*","src/config/firebase-config.js"],
+  "exclude": ["./node_modules", "./dist","./frontend/*"],
 }
