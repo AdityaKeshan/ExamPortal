@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
-let { initializeApp } = require("firebase/app");
-const admin=require('firebase-admin');
+import {initializeApp} from "firebase/app"
+//let { initializeApp } = require("firebase/app");
+import {getDatabase} from "firebase/database"
+//let { getDatabase } = require("firebase/database");
+import admin from "firebase-admin"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,5 +23,7 @@ const firebaseConfig = {
 admin.initializeApp(firebaseConfig);
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-module.exports = {app,admin};
+export {app,admin,database}
+module.exports = { app, admin, database };
