@@ -18,14 +18,20 @@ const RegisterCourse = ()=>{
             tokenId:admin.token,
         })
         .catch((err) => console.log(err));
-        debugger;
         console.log(result);
     }
     return(
-        <div className="w-full flex justify-center">
-            <form onSubmit={handleSubmit} >
-                <input type="text" name="courseName" value={courseName} onChange={onCourseChange}/>
-                <button type="submit">Submit</button>
+        <div className="flex justify-around blue-component w-3/5 flex-col items-center min-h-200">
+            <h4 className="header-4">Register Course</h4>
+            <form onSubmit={handleSubmit} className="space-y-4 flex flex-col items-center">
+                <div className="space-x-4">
+                    <label htmlFor="courseName">Enter Course Name: </label>
+                    <input type="text" name="courseName" value={courseName} onChange={onCourseChange}/>
+                </div>
+                <div className="h-16 flex items-center">
+                    <button type="submit" className="btn btn-blue w-32">Submit</button>
+                </div>
+                
             </form>
         </div>
     )

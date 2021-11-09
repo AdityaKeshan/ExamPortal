@@ -9,5 +9,15 @@ module.exports = {
       scale: ["group-hover"],
     },
   },
+  theme: {
+    minHeight: {
+      0: "0",
+      200: "200px",
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
+      full: "100%",
+    },
+  },
   plugins: [],
 };

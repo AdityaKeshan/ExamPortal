@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Fragment} from "react";
 import { getAuth, signOut } from "@firebase/auth";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import Header from "../utilities/header/Header";
 import axios from "axios";
 import SideBar from "../utilities/SideBar/SideBar";
 import RegisterCourse from "./RegisterCourse";
+import WelcomeMessage from "./WelcomeMessage";
 const Homepage = () => {
   const dispatch = useDispatch();
   const admin = useSelector((store) => store.loginAdmin.admin);
@@ -34,11 +35,14 @@ const Homepage = () => {
   };
 
   return (
-    <div className="ml-16">
+    <Fragment>
       <Header textTwo="Sign Out" handleTwo={handleSignOut} />
       <SideBar />
-      <RegisterCourse />
-    </div>
+      <div className="ml-16 flex items-center flex-col space-y-3 mt-6">
+        <WelcomeMessage />
+        <RegisterCourse />
+      </div>
+    </Fragment>
   );
 };
 
