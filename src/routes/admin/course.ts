@@ -64,5 +64,6 @@ router.post("/", verifyBody,async (req:Request, res:Response):Promise<void> => {
   }
   res.status(200);
   res.send("Course Registration successfull");
+})
 
 module.exports = router;
