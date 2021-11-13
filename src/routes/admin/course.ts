@@ -1,6 +1,6 @@
-import express from "express" 
+import express from "express";
 const router = express.Router();
-import {admin,database} from "../../config/firebase-config"
+import { app, admin, database } from "../../config/firebase-config";
 // const { app, admin, database } = require(path.resolve(
 //   "../ExamPortal/src/config/firebase-config"
 // ));
@@ -64,6 +64,5 @@ router.post("/", verifyBody,async (req:Request, res:Response):Promise<void> => {
   }
   res.status(200);
   res.send("Course Registration successfull");
-});
 
 module.exports = router;
