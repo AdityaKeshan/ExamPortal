@@ -1,12 +1,14 @@
 let express = require("express");
-let bodyParser = require("body-parser");
+//let bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 const app = express();
 require("./config/firebase-config");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
 //configuring cors
@@ -27,7 +29,6 @@ app.use("/admin/course", courseRouter);
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
 app.get("*", (req, res) => {
-  
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
@@ -35,4 +36,3 @@ app.get("*", (req, res) => {
 app.listen(3001, function () {
   console.log("Listening on port 3001");
 });
-
