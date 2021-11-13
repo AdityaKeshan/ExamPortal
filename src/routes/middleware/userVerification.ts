@@ -22,6 +22,10 @@ const verifyBody = function (req:Request, res:Response, next:NextFunction):void 
 
   const verifyParams = (req:Request, res:Response, next:NextFunction):void =>{
     const { tokenId } = req.params;
+    if(!tokenId){
+        res.status(400);
+        res.json({ message: "verification failed! No tokenId"});
+    }
     admin
       .auth()
       .verifyIdToken(tokenId)
