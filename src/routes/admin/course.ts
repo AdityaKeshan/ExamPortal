@@ -35,7 +35,7 @@ router.get("/",verifyParams ,async (req:Request, res:Response):Promise<void> => 
   }else{
     res.sendStatus(500);
     res.json({
-      message:"something went seriously wrong",
+      message:"Something went seriously wrong",
       courses:[]
     })
   }

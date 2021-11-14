@@ -21,10 +21,12 @@ app.use(cors(corsOptions));
 //importing routes
 const adminRouter = require("./routes/admin/course");
 const courseRouter = require("./routes/courses/course");
+const studentRouter= require("./routes/student/course");
 //setting up routes
 
 app.use("/admin/course", adminRouter);
 app.use("/course", courseRouter);
+app.use("/student/course",studentRouter);
 //set up front-end file
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
