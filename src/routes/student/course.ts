@@ -7,7 +7,7 @@ import { verifyBody,verifyParams } from "../middleware/userVerification";
 import { course } from "structures/structures";
 router.get("/",verifyParams, async (req: Request, res: Response): Promise<void> => {
     let uid = res.locals.userId;
-    const studentReference= ref(database,"students/$uid/courses");
+    const studentReference= ref(database,`students/$uid/courses`);
     const courseIds =(await get(child(studentReference,"/"))).val();
     if(!courseIds)
     {
@@ -20,7 +20,7 @@ router.get("/",verifyParams, async (req: Request, res: Response): Promise<void> 
     if(typeof courseIds=="object")
     {
         const courses:course[]=await Promise.all(Object.keys(courseIds).map(async (element:string):Promise<course>=>{
-          const courseRef=ref(database,'courses/${Object.keys(courseIds[element])[0]}');
+          const courseRef=ref(database,`courses/${Object.keys(courseIds[element])[0]}`);
           const courseObj: course=(await get(child(courseRef,'/'))).val();
           return courseObj;
         }))
@@ -47,10 +47,10 @@ router.post("/",verifyBody,async (req: Request, res: Response):Promise<void> => 
         res.json({message:"Course Does not exist"});
         // Something seems missing here
       }
-      await set(ref(database,'student/${uid}/courses'),{
+      await set(ref(database,`student/${uid}/courses`),{
         [courseId]:true
       });
-      await set(ref(database,'courses/${courseId}/studentIds'),{
+      await set(ref(database,`courses/${courseId}/studentIds`),{
           [uid]:true
       });
     }catch(e)
