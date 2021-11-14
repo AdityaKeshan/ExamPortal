@@ -21,12 +21,14 @@ const verifyBody = function (req:Request, res:Response, next:NextFunction):void 
   };
 
   const verifyParams = (req:Request, res:Response, next:NextFunction):void =>{
-    const { tokenId } = req.params;
+    let { tokenId } = req.query;
     if(!tokenId){
         res.status(400);
         res.json({ message: "verification failed! No tokenId"});
+        return;
     }
-    admin
+    if(typeof tokenId == "string"){
+      admin
       .auth()
       .verifyIdToken(tokenId)
       .then((ticket) => {
@@ -37,6 +39,10 @@ const verifyBody = function (req:Request, res:Response, next:NextFunction):void 
         res.status(400);
         res.json({ message: "verification failed!", err: error });
       });
+    }else{
+      res.status(400).json({ message: "verification failed! Invalid token"});
+    }
+    
   }
 
   export {verifyParams,verifyBody};

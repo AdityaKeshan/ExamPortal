@@ -19,12 +19,12 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //importing routes
-const courseRouter = require("./routes/admin/course");
-
+const adminRouter = require("./routes/admin/course");
+const courseRouter = require("./routes/courses/course");
 //setting up routes
 
-app.use("/admin/course", courseRouter);
-
+app.use("/admin/course", adminRouter);
+app.use("/course", courseRouter);
 //set up front-end file
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
