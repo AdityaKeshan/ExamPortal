@@ -7,7 +7,7 @@ import {database } from "../../config/firebase-config";
 import {set,ref,get,child,push,query, orderByChild, equalTo} from "firebase/database"
 import { Request, Response} from 'express';
 import {v4 as uuid} from "uuid";
-import {course} from "../../structures/structures";
+import {course,test} from "../../structures/structures";
 import { verifyBody,verifyParams } from "../middleware/userVerification";
 
 
@@ -38,6 +38,37 @@ router.get("/",verifyParams ,async (req:Request, res:Response):Promise<void> => 
       message:"Something went seriously wrong",
       courses:[]
     })
+  }
+});
+router.post("/:id/test",verifyBody,async (req:Request, res:Response ):Promise<void> =>{
+  let courseId=req.params[0];
+  let testId:string = uuid();
+  let {testName, startTime, endTime,questionID}=req.body;
+  try{
+    let courseRef= ref(database,`courses/${courseId}`);
+    const courseValid=((await get(child(courseRef,"/")))).val();
+      console.log(courseValid);
+      if(!courseValid){
+        res.status(200);
+        res.json({message:"Course Does not exist"});
+        // Something seems missing here
+      } 
+      else{
+        await set(ref(database,`/courses/${courseId}/testIds`),{
+          [testId]:{
+            testId:testId,
+            testName:testName,
+            startTime:startTime,
+            endTime:endTime,
+            questionID:questionID,
+          }
+        });
+      }
+  }
+  catch(e)
+  {
+    res.status(500);
+    res.json({message:"not Successfull"});
   }
 });
 router.post("/", verifyBody,async (req:Request, res:Response):Promise<void> => {
