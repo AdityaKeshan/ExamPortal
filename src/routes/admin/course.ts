@@ -4,7 +4,7 @@ import {database } from "../../config/firebase-config";
 // const { app, admin, database } = require(path.resolve(
 //   "../ExamPortal/src/config/firebase-config"
 // ));
-import {set,ref,get,child,push,query, orderByChild, equalTo} from "firebase/database"
+import {set,ref,get,child,push} from "firebase/database"
 import { Request, Response} from 'express';
 import {v4 as uuid} from "uuid";
 import {course} from "../../structures/structures";
@@ -24,7 +24,7 @@ router.get("/",verifyParams ,async (req:Request, res:Response):Promise<void> => 
   }
   if(typeof courseIds==="object"){
     const courses:course[] = await Promise.all(Object.keys(courseIds).map(async (element:string):Promise<course>=>{
-      const courseRef = ref(database,`courses/${Object.keys(courseIds[element])[0]}`);
+      const courseRef = ref(database,`courses/${element}`);
       const courseObj:course = ((await get(child(courseRef, "/")))).val();
       return courseObj;
     }))
@@ -51,9 +51,7 @@ router.post("/", verifyBody,async (req:Request, res:Response):Promise<void> => {
       studentIds:{},
       semester:semester,
     });
-    await set(push(ref(database,`admin/${res.locals.userId}/courses`)),{
-      [courseId]:true,
-    });
+    await set(ref(database,`admin/${res.locals.userId}/courses/${courseId}`),true);
   }catch(e){
     res.status(500);
     res.json({
