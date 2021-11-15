@@ -7,7 +7,7 @@ import { verifyBody,verifyParams } from "../middleware/userVerification";
 import { course } from "structures/structures";
 router.get("/",verifyParams, async (req: Request, res: Response): Promise<void> => {
     let uid = res.locals.userId;
-    const studentReference= ref(database,`students/$uid/courses`);
+    const studentReference= ref(database,`students/${uid}/courses`);
     const courseIds =(await get(child(studentReference,"/"))).val();
     if(!courseIds)
     {
