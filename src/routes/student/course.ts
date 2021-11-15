@@ -20,7 +20,7 @@ router.get("/",verifyParams, async (req: Request, res: Response): Promise<void> 
     if(typeof courseIds=="object")
     {
         const courses:course[]=await Promise.all(Object.keys(courseIds).map(async (element:string):Promise<course>=>{
-          const courseRef=ref(database,`courses/${Object.keys(courseIds[element])[0]}`);
+          const courseRef=ref(database,`courses/${element}`);
           const courseObj: course=(await get(child(courseRef,'/'))).val();
           return courseObj;
         }))
@@ -47,9 +47,7 @@ router.post("/",verifyBody,async (req: Request, res: Response):Promise<void> => 
         res.json({message:"Course Does not exist"});
         // Something seems missing here
       }
-      await set(ref(database,`student/${uid}/courses`),{
-        [courseId]:true
-      });
+      await set(ref(database,`student/${uid}/courses/${courseId}`),true);
       await set(ref(database,`courses/${courseId}/studentIds`),{
           [uid]:true
       });
@@ -64,16 +62,3 @@ router.post("/",verifyBody,async (req: Request, res: Response):Promise<void> => 
   });
   
   module.exports = router;
-
-    // let uid = req.body["uid"];
-    // let courseId: string = ((Math.random() * 10000 + 1) | 0).toString(); //TODO : - use uuid
-    // const { courseName, adminName } = req.body;
-    // set(ref(database, "student/" + uid + "/courses/"+courseId), {
-    //   courseName: courseName,
-    // });
-    // set(ref(database,"courses/"+courseId),{
-    //   courseName: courseName,
-    //   adminName: adminName,
-    //   adminID: uid,
-    // });
-    // res.send("successful");
