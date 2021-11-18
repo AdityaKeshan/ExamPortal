@@ -3,6 +3,7 @@ interface present {
 }
 
 interface question {
+  courseId:string;
   questionId: string;
   message: string;
   imageUrl: string;
@@ -12,7 +13,8 @@ interface test {
   testName: string;
   startTime: Date;
   endTime: Date;
-  questionID: present;
+  duration: Date;
+  questionID: present[];
 }
 
 interface course {
@@ -21,5 +23,13 @@ interface course {
   testIds: present;
   studentIds: present;
   semester: string;
+}
+//courseId
+
+interface answers{
+  studentId:string;
+  questionId:string;
+  text?:string;
+  uploads?:string;
 }
 export { question, test, course };
