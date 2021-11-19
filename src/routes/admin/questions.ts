@@ -7,7 +7,28 @@ import { Request, Response, NextFunction } from "express";
 // import { verifyBody,verifyParams } from "../middleware/userVerification";
 import { question} from "structures/structures";
 import { app, messaging } from "firebase-admin";
-
+router.post("/",async (req:Request,res:Response):Promise<void> =>{
+    let {testId,courseId,message}=req.body;
+    let questionId:string = uuid();
+    try{
+        //Upload image to storage(image itself) or database(in form of binary)
+        await set(ref(database,`/questions/${questionId}`),
+        {
+            courseId:courseId,
+            testId:testId,
+            message:message,
+            imageUrl:null,
+        });
+        await(set(ref(database,`/tests/${testId}/questionId/${questionId}`),true));
+        res.status(200);
+        res.json({message:"Success"})
+    }
+    catch(error){
+        console.log(error);
+        res.status(400);
+        res.json({message:"Error occured while setting question"});
+    }
+});
 router.get("/",async (req:Request,res:Response):Promise<void>=>{
     let testId=req.query.testId;
  

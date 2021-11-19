@@ -24,15 +24,17 @@ const adminRouterTests = require("./routes/admin/test");
 const courseRouter = require("./routes/courses/course");
 const studentRouter = require("./routes/student/course");
 const testRouter = require("./routes/tests/test");
-const questionsRouter =require("./routes/admin/questions");
+const adminRouterQuestions =require("./routes/admin/questions");
+const studentRouterAnswers=require("./routes/student/answers");
 //setting up routes
 
 app.use("/admin/course", adminRouterCourse);
 app.use("/admin/test", adminRouterTests);
 app.use("/course", courseRouter);
 app.use("/student/course", studentRouter);
+app.use("/student/answers", studentRouterAnswers);
 app.use("/test", testRouter);
-app.use("/admin/questions",questionsRouter);
+app.use("/admin/questions",adminRouterQuestions);
 //set up front-end file
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
