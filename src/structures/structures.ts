@@ -4,7 +4,7 @@ interface present {
 
 interface question {
   courseId:string;
-  questionId: string;
+  testId:string;
   message: string;
   imageUrl: string;
 }

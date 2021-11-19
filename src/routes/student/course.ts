@@ -34,6 +34,10 @@ router.get("/",verifyParams, async (req: Request, res: Response): Promise<void> 
       courses:[]});
     }
 });
+router.get("/:id/",verifyParams,async (req:Request,res:Response):Promise<void> => {
+  let uid=res.locals.userId;
+  let {courseId}=req.body;
+});
 router.post("/",verifyBody,async (req: Request, res: Response):Promise<void> => {
     let uid=res.locals.userId;
     let {courseId}=req.body;
