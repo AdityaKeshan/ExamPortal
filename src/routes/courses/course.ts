@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
 import {database } from "../../config/firebase-config";
-// const { app, admin, database } = require(path.resolve(
-//   "../ExamPortal/src/config/firebase-config"
-// ));
-import {ref,get,query, orderByChild, equalTo} from "firebase/database"
+import {ref,get,query, orderByChild, equalTo, child} from "firebase/database"
 import { Request, Response} from 'express';
+
+
+
 
 router.get("/:courseName",async (req:Request,res:Response):Promise<void>=>{
     const {courseName} = req.params;
@@ -19,4 +19,7 @@ router.get("/:courseName",async (req:Request,res:Response):Promise<void>=>{
     }
     
   })
+
+
+
   module.exports = router;

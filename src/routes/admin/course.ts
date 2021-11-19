@@ -10,6 +10,10 @@ import {v4 as uuid} from "uuid";
 import {course} from "../../structures/structures";
 import { verifyBody,verifyParams } from "../middleware/userVerification";
 
+interface courseWithId extends course{
+  courseId:string,
+}
+
 
 
 router.get("/",verifyParams ,async (req:Request, res:Response):Promise<void> => {
@@ -23,10 +27,10 @@ router.get("/",verifyParams ,async (req:Request, res:Response):Promise<void> => 
     })
   }
   if(typeof courseIds==="object"){
-    const courses:course[] = await Promise.all(Object.keys(courseIds).map(async (element:string):Promise<course>=>{
+    const courses:courseWithId[] = await Promise.all(Object.keys(courseIds).map(async (element:string):Promise<courseWithId>=>{
       const courseRef = ref(database,`courses/${element}`);
       const courseObj:course = ((await get(child(courseRef, "/")))).val();
-      return courseObj;
+      return {...courseObj,courseId:element};
     }))
     res.status(200).json({
       message:"successful",
