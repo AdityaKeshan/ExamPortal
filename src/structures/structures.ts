@@ -9,12 +9,13 @@ interface question {
   imageUrl: string;
 }
 interface test {
-  testId: string;
+  testId?: string;
   testName: string;
   startTime: Date;
   endTime: Date;
   duration: Date;
-  questionID: present[];
+  questionId?: present[];
+  studentId?:present[];
 }
 
 interface course {
