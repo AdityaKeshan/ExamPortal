@@ -6,7 +6,7 @@ interface question {
   courseId:string;
   testId:string;
   message: string;
-  imageUrl: string;
+  imageUrl: string[];
 }
 interface test {
   testId?: string;
@@ -31,6 +31,6 @@ interface answers{
   studentId:string;
   questionId:string;
   text?:string;
-  uploads?:string;
+  uploads?:string[];
 }
 export { question, test, course };

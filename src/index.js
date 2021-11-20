@@ -3,13 +3,16 @@ let express = require("express");
 const cors = require("cors");
 const path = require("path");
 const app = express();
+const bodyParser=require("body-parser");
 require("./config/firebase-config");
 
+// app.use(upload.array()); // will use if image in router doesnt work
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.urlencoded({extended:true}));
 
 //configuring cors
 const corsOptions = {

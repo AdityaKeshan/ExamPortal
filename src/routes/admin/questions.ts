@@ -1,23 +1,39 @@
 import express from "express";
 const router=express.Router();
-import { database } from "../../config/firebase-config";
+import { database ,storage,ref1} from "../../config/firebase-config";
 import { set, ref,get,push,child } from "firebase/database";
+import {uploadBytes ,getDownloadURL} from "firebase/storage";
 import {v4 as uuid} from "uuid";
-import { Request, Response, NextFunction } from "express";
-// import { verifyBody,verifyParams } from "../middleware/userVerification";
+import multer from "multer";
+const upload=multer();
+import { Request, Response } from "express";
 import { question} from "structures/structures";
-import { app, messaging } from "firebase-admin";
-router.post("/",async (req:Request,res:Response):Promise<void> =>{
+router.post("/",upload.any(),async (req:Request,res:Response):Promise<void> =>{
     let {testId,courseId,message}=req.body;
     let questionId:string = uuid();
     try{
-        //Upload image to storage(image itself) or database(in form of binary)
+        const metadata = {
+            contentType: "image/png",
+          };
+          var files = req.files as Express.Multer.File[];
+          let size = files?.length;
+          let downloadURLs: string[] = [];
+          if (size != null && files != null) {
+            for (let i = 0; i < size; i++) {
+              const fileName = `${i}.png`;
+              const storageRef = ref1(storage, questionId + "/" + fileName);
+              const file = files[i];
+              await uploadBytes(storageRef, file.buffer, metadata);
+              const downloadURL = await getDownloadURL(storageRef);
+              downloadURLs[i] = downloadURL;
+            }
+          }
         await set(ref(database,`/questions/${questionId}`),
         {
             courseId:courseId,
             testId:testId,
             message:message,
-            imageUrl:null,
+            imageUrl:downloadURLs,
         });
         await(set(ref(database,`/tests/${testId}/questionId/${questionId}`),true));
         res.status(200);

@@ -2,6 +2,7 @@
 import {initializeApp} from "firebase/app"
 //let { initializeApp } = require("firebase/app");
 import {getDatabase} from "firebase/database"
+import {getStorage,ref} from "firebase/storage";
 //let { getDatabase } = require("firebase/database");
 import admin from "firebase-admin"
 
@@ -24,6 +25,8 @@ admin.initializeApp(firebaseConfig);
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const storage=getStorage();
+const ref1=ref;
 
-export {app,admin,database}
-module.exports = { app, admin, database };
+export {app,admin,database,storage,ref1}
+module.exports = { app, admin, database,storage ,ref1};
