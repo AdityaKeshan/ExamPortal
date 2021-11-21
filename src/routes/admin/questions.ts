@@ -35,7 +35,7 @@ router.post("/",upload.any(),async (req:Request,res:Response):Promise<void> =>{
             message:message,
             imageUrl:downloadURLs,
         });
-        await(set(ref(database,`/tests/${testId}/questionId/${questionId}`),true));
+        await(set(ref(database,`/tests/${testId}/questions/${questionId}`),true));
         res.status(200);
         res.json({message:"Success"})
     }
