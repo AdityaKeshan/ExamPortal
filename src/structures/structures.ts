@@ -3,6 +3,7 @@ interface present {
 }
 
 interface question {
+  questionId?:string;
   courseId:string;
   testId:string;
   message: string;

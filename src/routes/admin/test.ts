@@ -17,7 +17,7 @@ router.post("/",verifyBody,async (req:Request,res:Response)=>{
               startTime: startTime,
               endTime:endTime,
               duration:duration,
-              questionId:{},
+              questions:{},
             });
             const setTest = set(ref(database,`courses/${courseId}/tests/${testId}`),true);
             await Promise.all([createTest,setTest]);
